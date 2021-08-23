@@ -6,7 +6,7 @@ const movies_list = [
         rating:"7",
         type:"thriller",
         id:"1",
-        liked:"true"
+        liked:true
     },
     {
         name:"Dunkirk",
@@ -25,7 +25,7 @@ const movies_list = [
         rating:"8",
         type:"Romance",
         id:"4",
-        liked:"true"
+        liked:true
     },
     {
         name:"MS Dhoni",

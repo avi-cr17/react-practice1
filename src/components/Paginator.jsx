@@ -17,6 +17,17 @@ export class Paginator extends Component {
       )
   }
 
+  handleLike(movie){
+    console.log("double click");
+    var movies=[...this.state.movies];
+    const index=movies.indexOf(movie);
+    movies[index].liked = !movies[index].liked;
+    this.setState(
+      { movies : movies}
+    );
+    
+  }
+
   constructor(){
     super();
     this.state.movies=getMovies();
@@ -58,7 +69,7 @@ export class Paginator extends Component {
             <td scope="col">{movie.type}</td>
             <td scope="col">{movie.rating}</td>
             <td><button className="btn btn-danger" onClick={()=>{this.onDelete(movie.id)}}>Delete</button></td>
-            <td><Like/></td>
+            <td><Like liked={movie.liked} onDobClick={()=>this.handleLike(movie)}/></td>
             </tr>   
       ))
     } 

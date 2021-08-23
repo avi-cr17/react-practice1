@@ -2,13 +2,7 @@ import React, { Component } from 'react'
 
 export class Like extends Component {
 
-    state={
-        isLiked: false
-    }
-
-    onLike(){
-        this.setState({isLiked: !this.state.isLiked});
-    }
+    
 
     
 
@@ -17,14 +11,14 @@ export class Like extends Component {
     render() {
 
         var classes="fa fa-heart"
-        if(!this.state.isLiked)
+        if(!this.props.liked)
         classes+="-o";
 
         return (
     
 
             <div>
-               <i className={classes} aria-hidden="true" onDoubleClick={()=>{this.onLike()}}></i>
+               <i className={classes} aria-hidden="true" onDoubleClick={this.props.onDobClick}></i>
             </div>
         )
     }
