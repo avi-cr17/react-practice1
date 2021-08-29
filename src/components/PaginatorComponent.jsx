@@ -9,8 +9,7 @@ export class PaginatorComponent extends Component {
       const range = _.range(1,number+1);
       console.log(range);
 
-      if(number ===1)
-      return <div></div>;
+      
 
         return (
             <div>
