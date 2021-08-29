@@ -99,7 +99,7 @@ export class Paginator extends Component {
       </tbody>
       </table>
 
-      <PaginatorComponent totalItems={totalItems} pageSize={this.state.pageSize} onPageChange={this.pageHandler}/>
+      <PaginatorComponent totalItems={totalItems} pageSize={this.state.pageSize} onPageChange={this.pageHandler} currentPage={this.state.current}/>
 
         </div>
         </React.Fragment>

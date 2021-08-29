@@ -19,8 +19,8 @@ export class PaginatorComponent extends Component {
   
   {
     range.map(val => (
-      <li className="page-item"><a className="page-link" href="#" onClick={() => this.props.onPageChange(val) }>{val}</a></li>
-    ))
+      <li className={"page-item "+ (val==this.props.currentPage ?"active":"")}><a className="page-link" href="#" onClick={() => this.props.onPageChange(val) }>{val}</a></li>
+    ),)
   }
     
     
