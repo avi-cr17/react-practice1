@@ -1,21 +1,31 @@
 import { getMovies } from "../services/Movies"
 import React, { Component } from 'react'
 import Like from "./Like";
+import PaginatorComponent from "./PaginatorComponent";
+import { Paginate } from "../util/paginate";
+
 
 
 export class Paginator extends Component {
 
   state={
-    movies: []
+    movies: [],
+    pageSize: 3,
+    current : 1,
+    currMovies : []
+
   };
 
-  onDelete(id){
+  onDelete = (id) =>{
       this.setState({movies : this.state.movies.filter(movie=>(
         movie.id!=id
       ))
       }
-      )
+      );
+      
   }
+
+  
 
   handleLike(movie){
     console.log("double click");
@@ -28,16 +38,29 @@ export class Paginator extends Component {
     
   }
 
-  constructor(){
+  constructor() {
     super();
-    this.state.movies=getMovies();
+    const allMovies=getMovies();
+    this.state.movies=allMovies;
+    this.state.current=1;
+    this.state.currMovies = Paginate(allMovies,1,this.state.pageSize);
+    this.onDelete.bind(this);
+  }
+
+  pageHandler = (page) =>{
+    this.setState({current : page});
+    console.log("page change",page);
+
   }
   
   
 
     render(){
-
+      
+      const totalItems = this.state.movies.length;
       const length = this.state.movies.length;
+      const newMovies = Paginate(this.state.movies,this.state.current,this.state.pageSize)
+      console.log(newMovies);
 
       if(length==0)
       return <p className="my-5 mx-5">No Movies in the database</p>
@@ -63,7 +86,7 @@ export class Paginator extends Component {
   </thead>
   <tbody>
     {
-      this.state.movies.map(movie=>(
+      newMovies.map(movie=>(
             <tr>
             <td scope="col">{movie.name}</td>
             <td scope="col">{movie.type}</td>
@@ -73,24 +96,11 @@ export class Paginator extends Component {
             </tr>   
       ))
     } 
-  </tbody>
-</table>
+      </tbody>
+      </table>
 
-<nav aria-label="...">
-  <ul className="pagination">
-    <li className="page-item disabled">
-      <a className="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-    </li>
-    <li className="page-item"><a className="page-link" href="#">1</a></li>
-    <li className="page-item active" aria-current="page">
-      <a className="page-link" href="#">2 </a>
-    </li>
-    <li className="page-item"><a className="page-link" href="#">3</a></li>
-    <li className="page-item">
-      <a className="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+      <PaginatorComponent totalItems={totalItems} pageSize={this.state.pageSize} onPageChange={this.pageHandler}/>
+
         </div>
         </React.Fragment>
     );
