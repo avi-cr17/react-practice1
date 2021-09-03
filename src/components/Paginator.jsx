@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Like from "./Like";
 import PaginatorComponent from "./PaginatorComponent";
 import { Paginate } from "../util/paginate";
-
+import _ from 'lodash';
 
 
 export class Paginator extends Component {
@@ -12,7 +12,7 @@ export class Paginator extends Component {
     movies: [],
     pageSize: 3,
     current : 1,
-    currMovies : []
+    sortColumn : {path : "name", order:"asc"}
 
   };
 
@@ -52,6 +52,24 @@ export class Paginator extends Component {
     console.log("page change",page);
 
   }
+
+  sortHandler = (column)=>{
+
+    if(this.state.sortColumn.order==="asc" && this.state.sortColumn.path===column)
+    this.setState({sortColumn : {path : column , order : "desc"}});
+    else
+    this.setState({sortColumn : {path : column , order : "asc"}});
+  }
+
+  SortIcon = (column)=>{
+
+    if(this.state.sortColumn.path==column && this.state.sortColumn.order=="asc")
+    return <i className="fa fa-sort-asc"></i>
+
+    if(this.state.sortColumn.path==column && this.state.sortColumn.order=="desc")
+    return <i className="fa fa-sort-desc"></i>
+
+  }
   
   
 
@@ -59,7 +77,12 @@ export class Paginator extends Component {
       
       const totalItems = this.state.movies.length;
       const length = this.state.movies.length;
-      const newMovies = Paginate(this.state.movies,this.state.current,this.state.pageSize)
+
+
+      const sortedMovies = _.orderBy(this.state.movies,[this.state.sortColumn.path],[this.state.sortColumn.order])
+
+
+      const newMovies = Paginate(sortedMovies,this.state.current,this.state.pageSize)
       console.log(newMovies);
 
       if(length==0)
@@ -76,11 +99,11 @@ export class Paginator extends Component {
             <table className="table table-dark mx-auto">
   <thead>
     <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Genre</th>
-      <th scope="col">Rating</th>
-      <th scope="col">Delete</th>
-      <th scope="col">Like</th>
+      <th scope="col" className ="clickable" onClick={()=>this.sortHandler("name") }>Name {this.SortIcon("name")}</th>
+      <th scope="col" className ="clickable"  onClick={()=>this.sortHandler("type") }>Genre {this.SortIcon("type")}</th>
+      <th scope="col" className ="clickable"  onClick={()=>this.sortHandler("rating")}>Rating {this.SortIcon("rating")}</th>
+      <th scope="col"   >Delete</th>
+      <th scope="col" >Like</th>
       
     </tr>
   </thead>
