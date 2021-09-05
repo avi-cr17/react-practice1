@@ -4,6 +4,7 @@ import Like from "./Like";
 import PaginatorComponent from "./PaginatorComponent";
 import { Paginate } from "../util/paginate";
 import _ from 'lodash';
+import { Link } from "react-router-dom";
 
 
 export class Paginator extends Component {
@@ -111,7 +112,7 @@ export class Paginator extends Component {
     {
       newMovies.map(movie=>(
             <tr>
-            <td scope="col">{movie.name}</td>
+            <td scope="col">{<Link to={`/movieinfo/${movie.id}/${movie.name}`}>{movie.name}</Link>}</td>
             <td scope="col">{movie.type}</td>
             <td scope="col">{movie.rating}</td>
             <td><button className="btn btn-danger" onClick={()=>{this.onDelete(movie.id)}}>Delete</button></td>
