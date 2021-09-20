@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.banner {
+  background: #b3fcfa;
+}
+
+.banner:hover {
+  background: #42d3ff;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.delete {
+  color: red;
+}
