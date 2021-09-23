@@ -11,7 +11,7 @@ export class NavBar extends Component {
   <div className="container-fluid">
     <NavLink className="navbar-brand" to="/">React-Practice</NavLink>
    
-    <div className="collapse navbar-collapse" id="navbarCollapse">
+    <div className=" navbar-nav" id="navbarCollapse">
       <ul className="navbar-nav me-auto mb-2 mb-md-0">
         
         <li className="nav-item">
@@ -21,10 +21,7 @@ export class NavBar extends Component {
           <NavLink className="nav-link" to="/movies" tabindex="-1" aria-disabled="flase">Movies</NavLink>
         </li>
       </ul>
-      <form className="d-flex">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      
     </div>
   </div>
 </nav>
